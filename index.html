@@ -5,14 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AppFreeze — Freeze background apps, save battery on Mac</title>
 <meta name="description" content="AppFreeze is a tiny macOS menu-bar utility that suspends background apps to save up to 30% battery. Free on the Mac App Store; Pro adds automatic freezing.">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <style>
   :root {
-    --bg: #0f1115; --card: #181b21; --line: #272b33;
-    --text: #f2f4f8; --muted: #9aa3b2; --accent: #4c8dff; --accent2: #34c759;
+    --bg: #000000; --card: #1d1d1f; --line: #2a2a2c;
+    --text: #f5f5f7; --muted: #a1a1a6; --accent: #2997ff; --accent2: #34c759;
+    --glass-border: color-mix(in srgb, #fff 14%, transparent);
     --radius: 16px;
   }
+  /* Light values live in one place, applied both when the system asks for light
+     (and no manual choice) and when the toggle forces light. */
   @media (prefers-color-scheme: light) {
-    :root { --bg:#f5f6f8; --card:#fff; --line:#e6e8ec; --text:#11141a; --muted:#5b6472; }
+    :root:not([data-theme]) {
+      --bg:#f5f5f7; --card:#fff; --line:#d2d2d7; --text:#1d1d1f; --muted:#6e6e73; --accent:#0071e3;
+      --glass-border: var(--line);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg:#f5f5f7; --card:#fff; --line:#d2d2d7; --text:#1d1d1f; --muted:#6e6e73; --accent:#0071e3;
+    --glass-border: var(--line);
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
@@ -22,6 +33,13 @@
     -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; align-items: center;
     min-height: 100vh; padding: 48px 20px;
+    position: relative; overflow-x: hidden;
+  }
+  /* Subtle neutral wash so the frosted-glass blur keeps a hint of depth */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60rem 60rem at 50% -10%, color-mix(in srgb, var(--text) 6%, transparent), transparent 60%);
   }
   .wrap { width: 100%; max-width: 760px; }
   header { text-align: center; margin-bottom: 40px; }
@@ -31,9 +49,22 @@
   .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
   .card {
-    background: var(--card); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 26px 22px;
+    position: relative;
+    /* Liquid Glass: translucent fill + backdrop blur */
+    background: color-mix(in srgb, var(--card) 55%, transparent);
+    -webkit-backdrop-filter: blur(22px) saturate(1.6);
+    backdrop-filter: blur(22px) saturate(1.6);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px; padding: 26px 22px;
+    box-shadow:
+      0 8px 30px rgba(0,0,0,.28),
+      inset 0 1px 0 color-mix(in srgb, #fff 30%, transparent);
     display: flex; flex-direction: column;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(160deg, color-mix(in srgb, #fff 18%, transparent), transparent 42%);
   }
   .card h2 { font-size: 19px; margin: 0 0 6px; }
   .tag { font-size: 12px; font-weight: 600; text-transform: uppercase;
@@ -118,7 +149,6 @@
     padding: 11px 20px; border-radius: 12px;
     border: 1px solid rgba(255,255,255,.14);
   }
-  @media (prefers-color-scheme: light) { .btn-as { border-color: var(--line); } }
   .btn-as:hover { opacity: .9; }
   .btn-as svg { width: 22px; height: 22px; fill: #fff; flex: none; }
   .btn-as .as-label { text-align: left; line-height: 1.1; }
@@ -319,8 +349,10 @@
 
   <footer>
     AppFreeze — a tiny menu-bar utility for macOS.<br>
-    The free <strong>Lite</strong> version is on the Mac App Store.
+    The free <strong>Lite</strong> version is on the Mac App Store.<br>
+    by <a href="studio.html">Metaflow Lab</a>
   </footer>
 </div>
+<script src="theme.js"></script>
 </body>
 </html>
