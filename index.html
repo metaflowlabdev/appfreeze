@@ -79,6 +79,36 @@
     .feature { grid-template-columns: 1fr; gap: 16px; }
     .feature:nth-child(even) .shot { order: 0; }
   }
+
+  /* Version comparison */
+  .compare { margin-top: 64px; }
+  .compare > h2 { text-align: center; font-size: 22px; margin: 0 0 6px; }
+  .compare > .sub { text-align: center; color: var(--muted); margin: 0 0 28px; }
+  .compare-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.cmp {
+    width: 100%; border-collapse: collapse; min-width: 460px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  table.cmp th, table.cmp td {
+    padding: 13px 16px; text-align: center; border-bottom: 1px solid var(--line);
+  }
+  table.cmp tr:last-child td { border-bottom: 0; }
+  table.cmp thead th { font-size: 14px; vertical-align: bottom; }
+  table.cmp thead th small {
+    display: block; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--muted); margin-top: 3px;
+  }
+  table.cmp th.feat, table.cmp td.feat {
+    text-align: left; font-weight: 500; color: var(--text); white-space: nowrap;
+  }
+  table.cmp td { color: var(--muted); font-size: 14px; }
+  /* highlight the Pro columns */
+  table.cmp .pro { background: color-mix(in srgb, var(--accent) 9%, transparent); }
+  table.cmp thead .pro { color: var(--accent); font-weight: 700; }
+  .yes { color: var(--accent2); font-weight: 700; }
+  .no  { color: var(--muted); opacity: .5; }
+  .cmp-note { text-align: center; color: var(--muted); font-size: 12px; margin: 14px 0 0; }
 </style>
 </head>
 <body>
@@ -118,6 +148,70 @@
       </a>
     </div>
   </div>
+
+  <section class="compare">
+    <h2>Lite vs Pro</h2>
+    <p class="sub">The free Lite app shows you what’s running. Pro lets you act on it.</p>
+    <div class="compare-scroll">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th class="feat">Feature</th>
+            <th>Lite<small>Free</small></th>
+            <th class="pro">Pro · Setapp<small>Subscription</small></th>
+            <th class="pro">Pro · Lifetime<small>One-time</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feat">Background apps monitor</td>
+            <td class="yes">✓</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">One-click freezing</td>
+            <td class="no">—</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">Smart auto-freeze</td>
+            <td class="no">—</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">Live energy monitor (per-app CPU)</td>
+            <td class="no">—</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">Quit background apps</td>
+            <td class="no">—</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">Global shortcut</td>
+            <td class="no">—</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">Launch at Login</td>
+            <td class="yes">✓</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">Safe by design (never freezes active/system apps)</td>
+            <td class="no">—</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">Free updates</td>
+            <td class="yes">✓</td><td class="pro yes">✓</td><td class="pro yes">✓</td>
+          </tr>
+          <tr>
+            <td class="feat">Distribution</td>
+            <td>Mac App&nbsp;Store</td><td class="pro">Setapp</td><td class="pro">Direct download</td>
+          </tr>
+          <tr>
+            <td class="feat">Price</td>
+            <td>Free</td><td class="pro">Setapp plan</td><td class="pro">$4.99 once</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">Setapp and Lifetime unlock the same Pro features — pick whichever billing suits you.</p>
+  </section>
 
   <section class="features">
     <h2>What AppFreeze Pro does</h2>
