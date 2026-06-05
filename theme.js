@@ -101,6 +101,11 @@
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("theme", next); } catch (e) {}
     render();
+    // iOS Safari repaints only the visible tile when CSS variables change,
+    // leaving the rest of the page on the old theme. Force a full repaint.
+    root.style.display = "none";
+    void root.offsetHeight; // reflow (same JS turn, so no visible flash)
+    root.style.display = "";
   });
 
   // When no manual choice is stored, keep following the system live.

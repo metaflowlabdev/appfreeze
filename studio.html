@@ -37,7 +37,7 @@
   }
   /* Subtle neutral wash so the frosted-glass blur keeps a hint of depth */
   body::before {
-    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
     background:
       radial-gradient(60rem 60rem at 50% -10%, color-mix(in srgb, var(--text) 6%, transparent), transparent 60%);
   }
